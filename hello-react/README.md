@@ -39,7 +39,59 @@
 
     
 * 4.2 onChange 이벤트 핸들링
-    - SyntheticEvent란?
-        웹 브라우저의 네이트비 이벤트를 감싸는 객체입니다. 네이티브 이벤트와 인터페이스가 같으므로 HTML에서 이벤트를 다룰때와 똑같이 사용하면 됨
+    - SyntheticEvent란?   
+        웹 브라우저의 네이트비 이벤트를 감싸는 객체입니다. 네이티브 이벤트와 인터페이스가 같으므로 HTML에서 이벤트를 다룰때와 똑같이 사용하면 됨   
         SyntheticEvent는 네이티브 이벤트와 달리 이벤트가 끝나고 나면 이벤트가 초기화 되므로 예를들어 0.5초뒤에 e객체 참조 이런식으로 사용불가능
         비동기적으로 이벤트 객체를 참조할 일이 있다면 e.persist()함수를 호출해주어야 합니다.
+    
+    - 클래스형 컴포넌트에서 이벤트에 함수형태의 값을 전달하는데 this 바인딩 필요, 이때 화살표 형태의 메소드를 사용해서 간단하게 작성 가능
+
+    ```javascript
+    handleChange = (e)=> {
+        this.setState({
+            message: e.target.value
+        });
+    }
+
+    handleClick = ()=>{
+        alert(this.state.message);
+        this.setState({
+            message:''
+        });
+    }
+    ```
+    - 인풋 값이 여러개 있을 때는 input의 name 속성을 이용하면 편리합니다. 객체 안에서 key를 []로 감싸면 그안에 넣은 레퍼런스가 가르키는 실제값이 key로 사용됩니다.
+    ```javascript
+    [e.target.name]: e.target.value
+    ```
+
+
+# 5장 ref : DOM에 이름달기
+
+* 리액트 컴포넌트 안에 id사용?
+    - 리액트 컴포넌트 안에는 id사용가능하나 권장되지 않는다. 컴포넌트의 장점은 재사용이 가능하다는 것인데, 이런 상황에서 id중복이 발생할 수 있기 때문
+    - 리액트 컴포넌트에서는 ref사용 -> 전역적으로 작동되지 않고 컴포넌트 내부에서만 작동
+
+* ref 언제사용?
+    - 'DOM을 꼭 직접적으로 건드려야 할 때' 사용
+    - state사용하여 조작할 수 있지만 특정 input에 포커스를 준다던지 스크롤박스를 조작한다던지 등 어쩔 수 없이 DOM에 직접적으로 접근해아하는 경우에 ref를 사용합니다.
+
+* class 컴포넌트에서 ref사용
+    1. 컴포넌트 내부에 멤버변수에 React.createRef() 함수 사용하여 생성
+    해당 멤버변수를 참조하고자하는 태그, 요소에 props로 넣어주면 설정 완료
+    ```javascript
+    input = React.createRef();
+
+    handleFocus = () => {this.input.current.focus();}
+    
+    <input ref={this.input}/>
+    ```
+    2. 콜백함수 사용
+    this.input은 input태그의 DOM을 가르킴
+    ```javascript
+    <input ref={(ref=>{this.input=ref})} />
+    ```
+
+* 리액트 컴포넌트에도 ref를 달 수 있습니다.
+
+
