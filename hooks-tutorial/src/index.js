@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import App_reducer from './App_reducer';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App_reducer />
   </React.StrictMode>,
   document.getElementById('root')
 );
