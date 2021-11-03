@@ -4,10 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import App_reducer from './App_reducer';
+import App_memo from './App_memo';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App_reducer />
+    <App_memo/>
   </React.StrictMode>,
   document.getElementById('root')
 );
