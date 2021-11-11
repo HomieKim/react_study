@@ -1,70 +1,24 @@
-# Getting Started with Create React App
+# todo-list
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* 메모
+    - todos 배열의 id 값은 useRef이용해서 관리합니다. (id 값은 참조만될 뿐 바뀐다고해서 리렌더링 될 필요가 없기 때문에)
+    - onInsert함수는 useCallback으로 감싸줍니다. props로 전달해야 할 함수를 만들 때는 useCallback을 사용하는 것이 좋습니다.
+    - 지우기 기능은 배열 내장함수 filter 사용하면 편리합니다.
+    - filter 함수에는 조건을 확인해 주는 함수를 파라미터로 넣어줌, 이 함수는 true or false를 반환 true만 새로운 배열에 포함됩니다
+    ```javascript
+    const array = [1,2,3,4,5,6,7,8,9,10];
+    const biggerThanFive = array.filter(number => number >5);
+    // 결과 : [6,7,8,9,10]
+    ```
 
-## Available Scripts
+    - 컴포넌트에 함수 전달할 때 왜 콜백 넣을까?
+    reference : https://ko.reactjs.org/docs/handling-events.html, https://ko.reactjs.org/docs/faq-functions.html
+     ```javascript
+     //일반적으로 props 전달할 때 이런식으로 함수의 레퍼런스 자체를 전달하게 됩니다.
+     <TodoListItem todo={todo} key={todo.id} onRemove={onRemove}/>
 
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+     // 이벤트 처리시 함수의 파라미터 값을 같이 넘겨 주려고 할 때는 화살표함수를 통한 바인딩이 필요합니다.
+     <div className="remove" onClick={()=>onRemove(id)}>
+     // 클래스 컴포넌트 사용시 
+     <div className="remove" onClick={this.onRemove.bind(this, id)}>
+    ```
