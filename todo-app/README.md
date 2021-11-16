@@ -22,3 +22,35 @@
      // 클래스 컴포넌트 사용시 
      <div className="remove" onClick={this.onRemove.bind(this, id)}>
     ```
+
+
+# 11장
+ - 많은데이터 렌더링시 React Dev Tool 이용해 성능을 check할 수 있습니다.
+ - 컴포넌트는 다음과 같은 상황에서 리랜더링이 발생합니다.
+    1. 자신이 전달 받은 props가 변경될 때
+    2. 자신의 state가 바뀔 때
+    3. 부모 컴포넌트가 리렌더링될 때
+    4. forceUpdate 함수가 실행될 때
+- 불필요한 리렌더링을 위해 최적화 필요
+
+- React.memo를 사용하여 컴포넌트 성능 최적화
+    - 컴포넌트의 props가 바뀌지 않았다면, 리렌더링 하지 않도록 설정하여 컴포넌트의 성능을 최적화 해줄 수 있다
+
+* 11.6 불변성의 중요성
+    - 리액트 컴포넌트에서 상태를 업데이트 할 때 불변성을 지키는 것은 매우 중요합니다.
+    - 불변성이 지켜지지 않으면 객체 내부의 값이 새로워져도 바뀐것을 감지 하지 못합니다. (memo를 통한 최적화 불가능)
+    - 추가로 전개 연산자는 얕은 복사를 하기 때문에 객체 내부의 값이 객체 혹은 배열이라면 내부의 값 또한 따로 복사해주어야 합니다.
+    ```javascript
+    const todos = [{id :1, checked : true}, {id:2, checked : true}];
+    const nextTodos = [...todos];
+
+    nextTodos[0].checked = false;
+    console.log(todos[0] === nextTodos[0]); // 똑같은 객체를 기리키기 때문에 true
+
+    nextTodos[0] = {
+        ...nextTodos[0],
+        checked : false
+    };
+    console.log(todos[0] === nextTodos[0]); // 새로운 객체를 할당해 주었기 때문에 false
+    // 객체의 구조가 많이 복잡한 경우 불변성을 유지하기 위해 immer라는 라이브러리를 사용하기도 함
+    ```
