@@ -184,3 +184,11 @@
         }
     }
     ```
+
+* 14.4.1 뉴스 api 데이터 구조
+
+- title : 제목
+- description : 내용
+- url : 링크
+- urlToImage : 뉴스이미지
+

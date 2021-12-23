@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import NewsList from './component/NewsList';
 
 
 const App = () =>{
@@ -14,12 +15,7 @@ const App = () =>{
   };
 
   return  (
-    <div>
-      <div>
-        <button onClick={onClick}>불러오기</button>
-      </div>
-      {data && <textarea rows={7} value={JSON.stringify(data, null, 2)} readOnly={true}/>}
-    </div>
+    <NewsList/>
   );
 };
 
