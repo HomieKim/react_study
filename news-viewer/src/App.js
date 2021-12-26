@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useCallback, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Categories from './component/Categories';
 import NewsList from './component/NewsList';
+import NewsPage from './component/NewsPage';
 
 
 const App = () =>{
@@ -15,14 +17,14 @@ const App = () =>{
   //   }
   // };
 
-  const [category, setCategory] = useState('all');
-  const onSelect = useCallback(category => setCategory(category),[]);
+  //const [category, setCategory] = useState('all');
+  //const onSelect = useCallback(category => setCategory(category),[]);
 
   return  (
-    <>
-      <Categories category={category} onSelect={onSelect} />
-      <NewsList category={category} />
-    </>
+    <Routes>
+      <Route path="/:category?" element={<NewsPage/>}/>
+      <Route path="/*" element={<NewsPage/>}/>
+    </Routes>
     
   );
 };
