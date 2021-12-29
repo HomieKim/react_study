@@ -26,4 +26,17 @@
 
 * Context 파일 Update
     - Context의 value에는 함수를 전달해 줄 수도있습니다.
+    - Consumer를 사용해 내보낼 수 있습니다.
+    - 이때 state와 action을 분리하여 설계하면 다른 컴포넌트에서 사용시 편리합니다.
+    ```javascript
+    // const ColorConsumer = ColorContext.Consumer와 같은 의미
+    const {Consumer : ColorConsumer} = ColorContext;
+    ```
+
+* 15.4 Hook, static contextType
+    - Context를 사용할 때 Consumer대신 다른방법으로도 값을 받아올 수 있습니다.
+    - 리액트 훅 중에 useContext라는 Hook을 사용하면 함수 컴포넌트의 Context를 편하게 사용 가능합니다.
+    - 단, useContext는 함수형 컴포넌트에서만 사용이 가능합니다.
+    - Class형 컴포넌트에서 Context를 사용하려면 static contextType을 정의하는 방법이 있습니다.
+
 
