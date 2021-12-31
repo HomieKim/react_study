@@ -1,3 +1,4 @@
+import { createAction } from 'redux-action';
 
 // 액션타입 정의
 const CHANGE_INPUT = 'todos/CHANGE_INPUT'; //인풋 값을 변경함
@@ -5,6 +6,21 @@ const INSERT = 'todos/INSERT'; // 새로운 TODO를 등록함
 const TOGGLE = 'todos/TOGGLE'; // todo를 체크/ 체크 해제
 const REMOVE = 'todos/REMOVE'; // todo를제거
 
+// redux-action 적용
+export const changeInput = createAction(CHANGE_INPUT, input => input);
+
+let id= 3;
+
+export const insert = createAction(INSERT, text = > ({
+    id: id++,
+    text,
+    done:false,
+}));
+
+export const toggle = createAction(TOGGLE, id => id);
+
+export const remove = createAction(REMOVE, id=> id);
+/*
 // 액션 생성함수 만들기
 export const changeInput = input => ({
     type : CHANGE_INPUT,
@@ -76,5 +92,5 @@ function todos(state = initialState, action){
             return state;
     }
 }
-
+*/
 export default todos;
