@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Sample from '../components/Sample';
+import loading from '../modules/loading';
 import { getPost , getUsers } from '../modules/sample';
 
 const SampleContainer = ({
@@ -12,8 +13,18 @@ const SampleContainer = ({
     loadingUsers
 }) => {
     useEffect(()=>{
-        getPost(1);
-        getUsers(1);
+        // useEffect에 파라미터로 넣는 함수는 async 불가능
+        // 내부에서 async 함수를  선언하고 호출
+        const fn = async () => {
+            try{
+                await getPost(1);
+                await getUsers(1);
+            }catch (e){
+                console.log(e);
+            }
+        }
+        fn();
+        
     }, [getPost, getUsers]);
 
     return(
@@ -30,8 +41,8 @@ export default connect(
     ({sample}) => ({
         post : sample.post,
         users : sample.users,
-        loadingPost : sample.loading.GET_POST,
-        loadingUsers : sample.loading.GET_USERS,
+        loadingPost : loading['sample/GET_POST'],
+        loadingUsers : loading['sample/GET_USERS'],
     }),
     {
         getPost,
