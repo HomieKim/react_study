@@ -61,7 +61,7 @@ export function* counterSaga(){
     yield takeEvery(INCREASE_ASYNC, increaseSaga);
     // takelatest는 기존에 진행 중이던 작업이 있다면 취소 처리하고
     // 가장 마지막으로 실행된 작업만 수합니다.
-    yield takeLatest(DECREASE_ASYNC, decreaseAsync);
+    yield takeLatest(DECREASE_ASYNC, decreaseSaga);
 }
 
 const initialState = 0;
